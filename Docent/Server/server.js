@@ -19,8 +19,11 @@ const TOPIC = 'v3/#'
 /* ---EXPRESS RELATED SETUP--- */
 const X = require('express')
 const APP = X()
-const PORT = 1999
-const PATH = require('path');
+const PORT = 1998
+const PATH = require('path')
+
+/* ---VARIABLES--- */
+const mqttData = []
 
 /* ---MQTT RELATED CODE--- */
 client.on('connect', () => {
@@ -30,11 +33,14 @@ client.on('connect', () => {
     })
 })
 client.on('message', (TOPIC, payload) => {
+    mqttData.push(payload.toString());
     console.log('Received Message:', TOPIC, payload.toString())
-
 })
 
 /* ---EXPRESS RELATED CODE--- */
+APP.get('/iotDashboard/sensorData', (req, res) => {
+    return res.send(JSON.stringify(mqttData));
+});
 
 APP.listen(PORT, () => {
     console.log(`Webshop running at http://localhost:${PORT}`)

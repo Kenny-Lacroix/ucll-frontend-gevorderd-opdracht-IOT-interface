@@ -35,6 +35,7 @@
 #include <hal/hal.h>
 #include <SPI.h>
 #include <Wire.h>
+#include <stdio.h>
 
 #include "SparkFunCCS811.h" //Click here to get the library: http://librarymanager/All#SparkFun_CCS811
 
@@ -60,12 +61,12 @@ void os_getDevEui (u1_t* buf) { memcpy_P(buf, DEVEUI, 8);}
 static const u1_t PROGMEM APPKEY[16] = { 0x1D, 0x45, 0x5D, 0xAC, 0x1A, 0x18, 0x03, 0xAC, 0x2D, 0x51, 0xE6, 0x94, 0x9A, 0xBB, 0x25, 0x1F };
 void os_getDevKey (u1_t* buf) {  memcpy_P(buf, APPKEY, 16);}
 
-static uint8_t mydata[]="testing";
+static uint8_t mydata[6];
 static osjob_t sendjob;
 
 // Schedule TX every this many seconds (might become longer due to duty
 // cycle limitations).
-const unsigned TX_INTERVAL = 60;
+const unsigned TX_INTERVAL = 5;
 
 // Pin mapping
 const lmic_pinmap lmic_pins = {
@@ -244,13 +245,14 @@ void setup() {
     // Start job (sending automatically starts OTAA too)
     do_send(&sendjob);
 }
-
 void loop() {
   os_runloop_once();
-
+  
+  
   //Check to see if data is ready with .dataAvailable()
   if (mySensor.dataAvailable())
   {
+ 
     //If so, have the sensor read and calculate the results.
     //Get them later
     mySensor.readAlgorithmResults();
@@ -265,10 +267,11 @@ void loop() {
     //Display the time since program start
     Serial.print(millis());
     Serial.print("]");
-    Serial.println();  
+    Serial.println();   
+    itoa(mySensor.getCO2(),mydata,10); //(integer, yourBuffer, base)
+    delay(10); //Don't spam the I2C bus
   }
-
-    //delay(10); //Don't spam the I2C bus
+  
   
     
 }

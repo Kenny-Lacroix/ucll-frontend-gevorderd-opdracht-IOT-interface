@@ -1,0 +1,108 @@
+{
+  "name": "as.up.data.forward",
+  "time": "2021-12-06T20:52:18.483976235Z",
+  "identifiers": [
+    {
+      "device_ids": {
+        "device_id": "luchtsensor",
+        "application_ids": {
+          "application_id": "iot-sensor-frontend-gevorderd"
+        }
+      }
+    },
+    {
+      "device_ids": {
+        "device_id": "luchtsensor",
+        "application_ids": {
+          "application_id": "iot-sensor-frontend-gevorderd"
+        },
+        "dev_eui": "70B3D57ED004969D",
+        "join_eui": "0000000000000000",
+        "dev_addr": "260BE6BE"
+      }
+    }
+  ],
+  "data": {
+    "@type": "type.googleapis.com/ttn.lorawan.v3.ApplicationUp",
+    "end_device_ids": {
+      "device_id": "luchtsensor",
+      "application_ids": {
+        "application_id": "iot-sensor-frontend-gevorderd"
+      },
+      "dev_eui": "70B3D57ED004969D",
+      "join_eui": "0000000000000000",
+      "dev_addr": "260BE6BE"
+    },
+    "correlation_ids": [
+      "as:up:01FP8R9JDDTGBVW8JFPD5KVDHP",
+      "gs:conn:01FNXTS396VSSX82RQ175EHPXJ",
+      "gs:up:host:01FNXTS3AF6C9ZBEQVS1VCNEYP",
+      "gs:uplink:01FP8R9J6VR5YXNNFSDJWKWZW5",
+      "ns:uplink:01FP8R9J6XYQQ3FHBDQMDVQEGN",
+      "rpc:/ttn.lorawan.v3.GsNs/HandleUplink:01FP8R9J6W5D57F7K79YYC4HN4",
+      "rpc:/ttn.lorawan.v3.NsAs/HandleUplink:01FP8R9JDCSXH1N0QZB32T7TWB"
+    ],
+    "received_at": "2021-12-06T20:52:18.478874981Z",
+    "uplink_message": {
+      "session_key_id": "AX2RM/t5eTnDjDUkK5gMzg==",
+      "f_port": 1,
+      "f_cnt": 234,
+      "frm_payload": "NDY2AAA=",
+      "decoded_payload": {
+        "bytes": ""
+      },
+      "rx_metadata": [
+        {
+          "gateway_ids": {
+            "gateway_id": "sint-truiden",
+            "eui": "00800000A00035E3"
+          },
+          "timestamp": 2395696979,
+          "rssi": -105,
+          "channel_rssi": -105,
+          "snr": 7.8,
+          "uplink_token": "ChoKGAoMc2ludC10cnVpZGVuEggAgAAAoAA14xDT3q32CBoLCILwuY0GEIPFsX8guLir1dzGUw==",
+          "channel_index": 1
+        }
+      ],
+      "settings": {
+        "data_rate": {
+          "lora": {
+            "bandwidth": 125000,
+            "spreading_factor": 7
+          }
+        },
+        "coding_rate": "4/5",
+        "frequency": "868300000",
+        "timestamp": 2395696979
+      },
+      "received_at": "2021-12-06T20:52:18.269042580Z",
+      "consumed_airtime": "0.051456s",
+      "network_ids": {
+        "net_id": "000013",
+        "tenant_id": "ttn",
+        "cluster_id": "ttn-eu1"
+      }
+    }
+  },
+  "correlation_ids": [
+    "as:up:01FP8R9JDDTGBVW8JFPD5KVDHP",
+    "gs:conn:01FNXTS396VSSX82RQ175EHPXJ",
+    "gs:up:host:01FNXTS3AF6C9ZBEQVS1VCNEYP",
+    "gs:uplink:01FP8R9J6VR5YXNNFSDJWKWZW5",
+    "ns:uplink:01FP8R9J6XYQQ3FHBDQMDVQEGN",
+    "rpc:/ttn.lorawan.v3.GsNs/HandleUplink:01FP8R9J6W5D57F7K79YYC4HN4",
+    "rpc:/ttn.lorawan.v3.NsAs/HandleUplink:01FP8R9JDCSXH1N0QZB32T7TWB"
+  ],
+  "origin": "ip-10-100-5-171.eu-west-1.compute.internal",
+  "context": {
+    "tenant-id": "CgN0dG4="
+  },
+  "visibility": {
+    "rights": [
+      "RIGHT_APPLICATION_TRAFFIC_READ",
+      "RIGHT_APPLICATION_TRAFFIC_READ"
+    ]
+  },
+  "unique_id": "01FP8R9JDK7BYDEDSFNDK7DGHK"
+}
