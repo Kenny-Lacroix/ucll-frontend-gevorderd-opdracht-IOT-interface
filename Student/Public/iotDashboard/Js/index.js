@@ -15,15 +15,17 @@ let localData = [];
 const getData = () => {
   fetch("http://essadji.be:1999/iot/all")
     .then((response) => response.json())
-    .then((data) => {
+    .then(async (data) => {
       console.log(data);
-      createLocalData(data);
-      //   updateHtml();
+      await createLocalData(data).then((x) => {
+        updateHtml(x);
+      });
     })
     .catch((error) => {
       console.error("There has been a problem with your fetch operation:", error);
     });
 };
+
 const postData = (obj) => {
   fetch("https://example.com/profile", {
     method: "POST",
@@ -56,36 +58,45 @@ const deleteData = (obj) => {
     });
 };
 
-const createLocalData = (data) => {
-  data.map((obj) => {
+const createLocalData = async (data) => {
+  data.map(async (obj, i) => {
     let appId = obj.end_device_ids.application_ids.application_id;
     let deviceId = obj.end_device_ids.device_id;
     if (obj.hasOwnProperty("uplink_message")) {
       let gatewayId = obj.uplink_message.rx_metadata[0].gateway_ids.gateway_id;
       let rawPayload = obj.uplink_message.frm_payload;
-      let timestamp = obj.uplink_message.rx_metadata[0].timestamp;
-      localData.push(new IotMessage(appId, deviceId, gatewayId, rawPayload, timestamp));
+      let timestamp = obj.received_at;
+      let message = new IotMessage(appId, deviceId, gatewayId, rawPayload, timestamp);
+      await message.convertPayload().then((x) => {
+        // console.log(message);
+        return x;
+        // localData.push(message);
+      });
     }
   });
-  console.log("data: ", localData);
+  // console.log("data: ", localData);
 };
 
-const updateHtml = (uploadMessages) => {
+const updateHtml = (x) => {
+  console.log("t");
+  console.log(localData);
   let tableHtml = "";
-  uploadMessages.map((uploadMessage, i) => {
+  x.map((data, i) => {
     tableHtml +=
       /* html */
       `<tr>
-        <td>Alfreds Futterkiste</td>
-        <td>Maria Anders</td>
-        <td>Germany</td>
-        <td>Alfreds Futterkiste</td>
-        <td>Maria Anders</td>
-        <td>Germany</td>
-        <td><span class="bi bi-trash-fill"></span></td>
-     </tr>`;
+    <td>${data.applicationId}</td>
+    <td>${data.deviceId}</td>
+    <td>${data.gatewayId}</td>
+    <td>${data.rawPayload}</td>
+    <td>${data.decodedPayload}</td>
+    <td>${data.timestamp}</td>
+    <td><span id="delete${i}" class="bi bi-trash-fill"></span></td>
+    </tr>`;
   });
-  document.querySelector("#customers").innerHTML = tableHtml;
+
+  console.log(tableHtml);
+  document.querySelector("#tableBody").innerHTML = tableHtml;
 };
 
 // ---------------------------------------

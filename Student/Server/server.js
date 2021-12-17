@@ -8,8 +8,14 @@ const PATH = require("path");
 APP.use("/iotDashboard", X.static(PATH.join(__dirname, "../Public/iotDashboard")));
 
 /* ---ENDPOINTS--- */
-APP.post("/iotDashboard/sensorStatus", (req, res) => {
-  return res.send("Received a POST HTTP method");
+APP.post("/data/base64conversion", (req, res) => {
+  console.log(req.body);
+  // const { data } = req.body;
+  // console.log(dataToConvert);
+  //let convertedData = btoa(rawPayload);, data: convertedData
+  let response = { status: "OK" };
+
+  return res.send(JSON.stringify(response));
 });
 
 /* ---START SERVER--- */

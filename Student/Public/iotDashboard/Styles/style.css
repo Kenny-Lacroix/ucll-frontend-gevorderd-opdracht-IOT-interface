@@ -28,6 +28,10 @@ main {
 h1 {
   margin-top: 10px;
 }
+#scrollContainer {
+  height: 75vh;
+  overflow-y: auto;
+}
 
 #content {
   display: flex;
@@ -43,31 +47,31 @@ h1 {
   align-items: center;
   background-color: var(--ucllPink);
   padding: 10px;
-  height: 100vh;
+  height: 98.4vh;
 }
 #title {
   padding-left: 25px;
 }
 
-#customers {
+#iotData {
   border-collapse: collapse;
   width: 96%;
   margin: 20px 200px 0px 20px;
 }
 
-#customers td,
-#customers th {
+#iotData td,
+#iotData th {
   border: 1px solid var(--lightGray);
   padding: 8px;
   font-size: 20px;
 }
 
-#customers tr:hover {
+#iotData tr:hover {
   background-color: var(--ucllLightBlue);
   color: var(--ucllDarkBlue);
 }
 
-#customers th {
+#iotData th {
   padding-top: 12px;
   padding-bottom: 12px;
   text-align: left;
