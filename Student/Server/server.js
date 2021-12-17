@@ -9,11 +9,10 @@ APP.use("/iotDashboard", X.static(PATH.join(__dirname, "../Public/iotDashboard")
 
 /* ---ENDPOINTS--- */
 APP.post("/data/base64conversion", (req, res) => {
-  console.log(req.body);
-  // const { data } = req.body;
-  // console.log(dataToConvert);
-  //let convertedData = btoa(rawPayload);, data: convertedData
-  let response = { status: "OK" };
+  const { data } = req.body;
+  console.log(data);
+  let convertedData = btoa(rawPayload);
+  let response = { status: "OK", data: convertedData };
 
   return res.send(JSON.stringify(response));
 });
