@@ -19,23 +19,20 @@ const getData = () => {
 const createLocalData = async (data) => {
   let localData = [];
 
-  data.map(async (obj, i) => {
+  for (let i = 0; i < data.length; i++) {
+    let obj = data[i];
     let appId = obj.end_device_ids.application_ids.application_id;
     let deviceId = obj.end_device_ids.device_id;
-    if (obj.hasOwnProperty("uplink_message")) {
+    if (obj.uplink_message && obj.uplink_message.frm_payload) {
       let gatewayId = obj.uplink_message.rx_metadata[0].gateway_ids.gateway_id;
       let rawPayload = obj.uplink_message.frm_payload;
       let timestamp = obj.received_at;
       let message = new IotMessage(appId, deviceId, gatewayId, rawPayload, timestamp);
+      let converted = await message.convertPayload();
+      message.decodedPayload = converted.data;
       localData.push(message);
-      // await message.convertPayload().then((x) => {
-      //   message.decodedPayload = x;
-      //   console.log(message);
-      //   localData.push(message);
-      // });
     }
-  });
-  console.log("data: ", localData);
+  }
   return localData;
 };
 

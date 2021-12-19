@@ -6,13 +6,15 @@ const PATH = require("path");
 
 /* ---EXPRESS RELATED CODE--- */
 APP.use("/iotDashboard", X.static(PATH.join(__dirname, "../Public/iotDashboard")));
+APP.use(X.json());
 
 /* ---ENDPOINTS--- */
 APP.post("/data/base64conversion", (req, res) => {
   const { data } = req.body;
   console.log(data);
-  let convertedData = btoa(rawPayload);
-  let response = { status: "OK", data: convertedData };
+  let decodedInfo = Buffer.from(data, "base64").toString("ascii");
+  // let decodedInfo = atob(data);
+  let response = { status: "OK", data: decodedInfo };
 
   return res.send(JSON.stringify(response));
 });

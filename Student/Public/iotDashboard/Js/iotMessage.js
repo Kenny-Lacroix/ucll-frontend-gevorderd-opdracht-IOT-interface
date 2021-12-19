@@ -3,7 +3,7 @@ export class IotMessage {
     this.applicationId = applicationId;
     this.deviceId = deviceId;
     this.gatewayId = gatewayId;
-    this.rawPayload = rawPayload;
+    rawPayload !== "" ? (this.rawPayload = rawPayload) : (this.rawPayload = "No sensor data");
     this.decodedPayload = "No data";
     this.timestamp = new Date(timestamp).toLocaleString();
   }
