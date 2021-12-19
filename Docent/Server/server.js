@@ -1,48 +1,32 @@
-/* ---MQTT RELATED SETUP--- */
-const MQTT = require('mqtt')
-const MQTT_HOST = 'eu1.cloud.thethings.network'
-const MQTT_PORT = '1883'
-const MQTT_clientId = `mqtt_${Math.random().toString(16).slice(3)}`
+//#region // MASTER //
+//////////////////////
+const X = require("express");
+const APP = X();
+const PORT = 1999;
+/////////////////////////
+//#endregion // MASTER //
 
-const connectUrl = `mqtt://${MQTT_HOST}:${MQTT_PORT}`
-const client = MQTT.connect(connectUrl, {
-    clientId: MQTT_clientId,
-    clean: true,
-    connectTimeout: 4000,
-    username: 'iot-sensor-frontend-gevorderd@ttn',
-    password: 'NNSXS.UGJCMHGZ6FBZN5N3PU2ZDNF4N2BVU7OFA3QBD6Q.IYECKMGUM55OO6K5SHI3VURFRVMHKKAV36TIGATW2VFGLMRJJGZA',
-    reconnectPeriod: 1000,
-})
-
-const TOPIC = 'v3/#'
-
-/* ---EXPRESS RELATED SETUP--- */
-const X = require('express')
-const APP = X()
-const PORT = 1998
-const PATH = require('path')
-
-/* ---VARIABLES--- */
-const mqttData = []
-
-/* ---MQTT RELATED CODE--- */
-client.on('connect', () => {
-    console.log('Connected')
-    client.subscribe([TOPIC], () => {
-        console.log(`Subscribe to TOPIC '${TOPIC}'`)
-    })
-})
-client.on('message', (TOPIC, payload) => {
-    mqttData.push(payload.toString());
-    console.log('Received Message:', TOPIC, payload.toString())
-})
-
-/* ---EXPRESS RELATED CODE--- */
-APP.get('/iotDashboard/sensorData', (req, res) => {
-    return res.send(JSON.stringify(mqttData));
-});
-
+//#region // EXPRESS //
+///////////////////////
+// ROUTERS
+APP.use("/iot", require("./iot.js"));
+// STATIC
+APP.use("/", X.static(__dirname + "../Public"));
+// LAUNCH
 APP.listen(PORT, () => {
-    console.log(`Webshop running at http://localhost:${PORT}`)
-})
+  console.log(`about to set up a Node HTTP server on port ${PORT} ...`);
+  console.log(">>> \x1b[32mserver up and running\x1b[0m\n");
+  console.log(`\x1b[45m  =================  \x1b[0m\n`);
+  console.log(`system messages ...`);
+});
+//////////////////////////
+//#endregion // EXPRESS //
 
+//#region // SPLASH //
+//////////////////////
+console.clear();
+console.log(
+  `\n\n\x1b[45m  =================  \x1b[0m\n\x1b[45m   1999 API portal   \x1b[0m\n\x1b[45m   ©2k21 (essadji)   \x1b[0m\n\x1b[45m  =================  \x1b[0m\n`
+);
+/////////////////////////
+//#endregion // SPLASH //
