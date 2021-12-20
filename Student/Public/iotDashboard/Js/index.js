@@ -21,9 +21,9 @@ const createLocalData = async (data) => {
 
   for (let i = 0; i < data.length; i++) {
     let obj = data[i];
-    let appId = obj.end_device_ids.application_ids.application_id;
-    let deviceId = obj.end_device_ids.device_id;
     if (obj.uplink_message && obj.uplink_message.frm_payload) {
+      let appId = obj.end_device_ids.application_ids.application_id;
+      let deviceId = obj.end_device_ids.device_id;
       let gatewayId = obj.uplink_message.rx_metadata[0].gateway_ids.gateway_id;
       let rawPayload = obj.uplink_message.frm_payload;
       let timestamp = obj.received_at;
