@@ -20,30 +20,13 @@
       <a id="ControlBtn" class="btn"><i class="bi bi-wrench"></i> Control</a>
     </nav>
     <main>
-      <h1 id="title">IoT Device Dashboard</h1>
+      <h1 id="title">Statistics</h1>
       <hr>
-      <div id="scrollContainer">
-        <table id="iotData">
-          <thead>
-            <tr>
-              <th></th>
-              <th>Application id</th>
-              <th>Device id</th>
-              <th>Gateway id</th>
-              <th>Raw payload</th>
-              <th>Decoded payload</th>
-              <th>Timestamp</th>
-              <th>Action</th>
-            </tr>
-          </thead>
-          <tbody id="tableBody">
-            
-          </tbody>
-        </table>
-      </div>
+       <canvas id="line-chart" width="800" height="450"></canvas>
     </main>
   </div>
-  <script type="module" src="./Js/index.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script type="module" src="./Js/statistics.js"></script>
 </body>
 
 </html>
